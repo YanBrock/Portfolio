@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="style.css">
+	<title>Battleships</title>
+</head>
+
+<body>
+	<header>
+		<h1>Set up your battle!</h1>
+	</header>
+
+	<main>
+		<div class="settings">
+			<div class="settings-size">
+				<h2>Field size</h2>
+				<div class="size-buttons">
+					<button id="mini">Mini (5x5)</button>
+					<button id="standard" class="active">Standard (10x10)</button>
+					<button id="big">Big (15x15)</button>
+					<button id="huge">Huge (20x20)</button>
+				</div>
+			</div>
+
+			<div class="settings-fleet">
+				<h2>Your fleet</h2>
+				<div class="fleet-buttons"></div>
+			</div>
+		</div>
+
+
+		<div class="fields">
+			<div id="firstPlayer" class="field"></div>
+			<div id="secondPlayer" class="field"></div>
+		</div>
+	</main>
+
+
+
+	<script src="scripts.js"></script>
+</body>
+
+</html>

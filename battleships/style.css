@@ -1,0 +1,143 @@
+:root {
+	--fontColor: rgb(69, 134, 69);
+	--fontColorActive: rgb(165, 164, 87);
+	--borderBtnColorHover: rgba(174, 187, 99, 0.3);
+	--fontSize: 24px;
+	--fontSizeBtn: 18px;
+}
+
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	cursor: default;
+}
+
+body {
+	background-color: rgb(37, 37, 37);
+	height: 100vh;
+	overflow: hidden;
+}
+
+header {
+	width: 100vw;
+	text-align: center;
+	font-size: 32px;
+	margin: 2rem auto;
+	text-transform: uppercase;
+	color: var(--fontColor);
+}
+
+main {
+	width: 1400px;
+	margin: 0 auto;
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	text-transform: uppercase;
+	color: var(--fontColor);
+	padding: 0 1rem;
+}
+
+main .settings {
+	display: inherit;
+	width: 50%;
+	/* font-size: var(--fontSize) */
+}
+
+main .settings-size {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-right: 5rem;
+}
+
+main h2 {
+	margin-bottom: 1rem;	
+}
+
+button {
+	width: 12em;
+	height: 4em;
+	font-size: var(--fontSizeBtn);
+	background-color: transparent;
+	color: var(--fontColor);
+	border: none;
+	cursor: pointer;
+}
+
+button:not(:last-child) {
+	/* margin-bottom: 1rem; */
+	column-gap: 10px;
+}
+
+button.active {
+	border: solid 2px var(--fontColorActive);
+	/* background-color: rgba(255, 255, 255, 0.2); */
+	cursor: default;
+	color: var(--fontColorActive);
+}
+
+button.active:hover {
+	border: solid 2px var(--fontColorActive);
+	color: var(--fontColorActive);
+}
+
+button:hover {
+	border: solid 2px var(--borderBtnColorHover);
+}
+
+main .settings-fleet {
+	margin-right: 5rem;
+}
+
+main .size-buttons, .fleet-battons {
+	display: inherit;
+	flex-direction: column;
+}
+
+.fields {
+	width: 50%;
+	display: flex;
+}
+
+.field {
+	display: flex;
+	/* border: solid 1px var(--fontColor); */
+	align-self: flex-start;
+	/* background-color: rgb(58, 87, 107); */
+}
+
+.field .fieldChar {
+	text-align: center;
+}
+
+.battleCell, .char {
+	height: 2rem;
+	width: 2rem;
+	border: solid 1px var(--fontColor);
+}
+
+.battleCell:hover {
+	background-color: var(--borderBtnColorHover);
+	cursor: pointer;
+}
+
+.char {
+	border: none;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/* .battleCell:hover {
+	border: solid 3px rgb(255, 230, 0);
+}
+
+.hit {
+	background-color: red;
+}
+
+.miss {
+	background-color: white;
+} */
