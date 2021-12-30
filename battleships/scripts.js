@@ -237,19 +237,13 @@ function toSetSthip(event, arrayShip, index) {
 			fleetButtonsArea.children[index].innerHTML = `${firstPlayerFleet.fleet[index].name} - ${firstPlayerFleet.fleet[index].counter}/${firstPlayerFleet.fleet[index].amount} (${firstPlayerFleet.fleet[index].size} cell)`;
 			arrayShip.push(firstPlayerFleet.unit);
 			firstPlayerFleet.unit = [];
-			console.log(arrayShip);
 		}
 
 		event.target.style.backgroundColor = "var(--fontColorActive)";
 		event.target.style.borderColor = "var(--fontColorActive)";
 		event.target.classList.add("selectedCell");
 
-
-
 		getShipCells(event, firstPlayerFleet.unit, index);
-
-
-
 	}
 };
 
@@ -260,13 +254,15 @@ function toSetSthip(event, arrayShip, index) {
 // console.log(getNumFromStr('z1'));
 
 function getShipCells(event, coordinate, index) {
-	console.log(coordinate[0]);
-	if (coordinate.length === 1) {
+	if (coordinate.length === 1) {		
 
 		firstPlayerFleet.getIntLeter = battleField.chars.indexOf(coordinate[coordinate.length - 1][0]);
-		console.log(firstPlayerFleet.getIntLeter);
 		firstPlayerFleet.getInt = +coordinate[coordinate.length - 1][1];
-		console.log(firstPlayerFleet.getInt);
+
+		if(coordinate[coordinate.length - 1].length > 2) {
+			let twodigitNumber = +(coordinate[coordinate.length - 1][1] + coordinate[coordinate.length - 1][2]);
+			firstPlayerFleet.getInt = twodigitNumber;
+		}
 
 		for (let i = 0; i < firstPlayerFleet.fleet[index].size; i++) {
 
@@ -289,7 +285,6 @@ function getShipCells(event, coordinate, index) {
 		console.log(firstPlayerFleet.allowCellX);
 		console.log(firstPlayerFleet.allowCellY);
 
-
 		for (let i = 0; i < firstPlayerFleet.allowCellX.length; i++) {
 			if (!document.querySelector(`#${firstPlayerFleet.allowCellX[i]}`).classList.contains("selectedCell")) {
 				document.querySelector(`#${firstPlayerFleet.allowCellX[i]}`).style.backgroundColor = "var(--borderBtnColorHover)";
@@ -302,35 +297,4 @@ function getShipCells(event, coordinate, index) {
 			}
 		}
 	}
-	// else if (coordinate.length === 2 && firstPlayerFleet.allowCellX.includes(coordinate[1])) {
-
-	// 	for (let l = 0; l < firstPlayerFleet.allowCellX.length; l++) {
-	// 		if (!document.querySelector(`#${firstPlayerFleet.allowCellX[l]}`).classList.contains("selectedCell")) {
-	// 			// document.querySelector(`#${firstPlayerFleet.allowCellX[l]}`).style.backgroundColor = "transparent";
-	// 			// document.querySelector(`#${firstPlayerFleet.allowCellY[l]}`).style.backgroundColor = "transparent";
-	// 		}
-
-	// 	}
-
-	// } else if (coordinate.length === 2 && firstPlayerFleet.allowCellY.includes(coordinate[1])) {
-	// 	for (let l = 0; l < firstPlayerFleet.allowCellX.length; l++) {
-	// 		if (!document.querySelector(`#${firstPlayerFleet.allowCellX[l]}`).classList.contains("selectedCell")) {
-	// 			// document.querySelector(`#${firstPlayerFleet.allowCellX[l]}`).style.backgroundColor = "transparent";
-	// 			// document.querySelector(`#${firstPlayerFleet.allowCellY[l]}`).style.backgroundColor = "transparent";
-	// 		}
-	// 	}
-	// }
-
 }
-
-// else if (coordinate.length - 1 === 1) {
-
-
-
-// } else if (coordinate.length - 1 === 2) {
-
-// } else if (coordinate.length - 1 === 3) {
-
-// } else if (coordinate.length - 1 === 4) {
-
-// }
