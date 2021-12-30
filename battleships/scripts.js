@@ -270,7 +270,7 @@ function getShipCells(event, coordinate, index) {
 				firstPlayerFleet.allowCellX.push(`${battleField.chars[firstPlayerFleet.getIntLeter + i]}` + `${firstPlayerFleet.getInt}`);
 			}
 
-			if (Math.sign(firstPlayerFleet.getIntLeter - i) !== -1 && firstPlayerFleet.getIntLeter - i !== 0) {
+			if (Math.sign(firstPlayerFleet.getIntLeter - i) !== -1 && firstPlayerFleet.getIntLeter - i !== 0 && !firstPlayerFleet.allowCellX.includes(`${battleField.chars[firstPlayerFleet.getIntLeter - i]}` + `${firstPlayerFleet.getInt}`)) {
 				firstPlayerFleet.allowCellX.push(`${battleField.chars[firstPlayerFleet.getIntLeter - i]}` + `${firstPlayerFleet.getInt}`);
 			}
 
@@ -278,7 +278,7 @@ function getShipCells(event, coordinate, index) {
 				firstPlayerFleet.allowCellY.push(`${battleField.chars[firstPlayerFleet.getIntLeter]}` + `${firstPlayerFleet.getInt + i}`);
 			}
 
-			if (Math.sign(firstPlayerFleet.getInt - i) !== -1 && firstPlayerFleet.getInt - i !== 0) {
+			if (Math.sign(firstPlayerFleet.getInt - i) !== -1 && firstPlayerFleet.getInt - i !== 0 && !firstPlayerFleet.allowCellY.includes(`${battleField.chars[firstPlayerFleet.getIntLeter]}` + `${firstPlayerFleet.getInt - i}`)) {
 				firstPlayerFleet.allowCellY.push(`${battleField.chars[firstPlayerFleet.getIntLeter]}` + `${firstPlayerFleet.getInt - i}`);
 			}
 		}
