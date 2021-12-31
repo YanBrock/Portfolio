@@ -99,8 +99,6 @@ const battleField = {
 	},
 };
 
-// console.log(battleField);
-
 const view = {
 	message1: "Message 1",
 	message2: "Message 2",
@@ -197,6 +195,18 @@ window.onload = function () {
 	});
 
 	fleetButtonsArea.addEventListener("click", function (event) {
+		let allCells = document.querySelectorAll(".battleCell");
+		for(let el of allCells) {
+			if(el.classList.contains("selectedCell") || el.classList.contains("allowedCell")) {
+				el.classList.remove("selectedCell", "allowedCell");
+			}
+		}
+
+		if(firstPlayerFleet.allowCellX !== []) {
+			firstPlayerFleet.allowCellX = [];
+			firstPlayerFleet.allowCellY = [];
+		}
+
 		if (!event.target.classList.contains("active") && event.target.parentNode.className === "fleet-buttons") {
 			view.setActiveStatus(event);
 		}
@@ -238,20 +248,12 @@ function toSetSthip(event, arrayShip, index) {
 			arrayShip.push(firstPlayerFleet.unit);
 			firstPlayerFleet.unit = [];
 		}
-
-		event.target.style.backgroundColor = "var(--fontColorActive)";
-		event.target.style.borderColor = "var(--fontColorActive)";
+		
 		event.target.classList.add("selectedCell");
 
 		getShipCells(event, firstPlayerFleet.unit, index);
 	}
 };
-
-// console.log("a1".split(""));
-// console.log("a2".split(""));
-// battleField.chars.indexOf(coordinate[0]) + 1
-// battleField.chars.indexOf(coordinate[coordinate.length - 1][0])
-// console.log(getNumFromStr('z1'));
 
 function getShipCells(event, coordinate, index) {
 	if (coordinate.length === 1) {		
@@ -287,13 +289,13 @@ function getShipCells(event, coordinate, index) {
 
 		for (let i = 0; i < firstPlayerFleet.allowCellX.length; i++) {
 			if (!document.querySelector(`#${firstPlayerFleet.allowCellX[i]}`).classList.contains("selectedCell")) {
-				document.querySelector(`#${firstPlayerFleet.allowCellX[i]}`).style.backgroundColor = "var(--borderBtnColorHover)";
+				document.querySelector(`#${firstPlayerFleet.allowCellX[i]}`).classList.add("allowedCell");
 			}
 		}
 
 		for (let i = 0; i < firstPlayerFleet.allowCellY.length; i++) {
 			if (!document.querySelector(`#${firstPlayerFleet.allowCellY[i]}`).classList.contains("selectedCell")) {
-				document.querySelector(`#${firstPlayerFleet.allowCellY[i]}`).style.backgroundColor = "var(--borderBtnColorHover)";
+				document.querySelector(`#${firstPlayerFleet.allowCellY[i]}`).classList.add("allowedCell");
 			}
 		}
 	}
