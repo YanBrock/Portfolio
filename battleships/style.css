@@ -118,7 +118,7 @@ main .size-buttons, .fleet-battons {
 	border: solid 1px var(--fontColor);
 }
 
-.battleCell:hover {
+.battleCell:hover, .allowedCell {
 	background-color: var(--borderBtnColorHover);
 	cursor: pointer;
 }
@@ -128,6 +128,11 @@ main .size-buttons, .fleet-battons {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+
+.selectedCell, .selectedCell:hover {
+	background-color: var(--fontColorActive);
+	border-color: var(--fontColorActive);
 }
 
 /* .battleCell:hover {
