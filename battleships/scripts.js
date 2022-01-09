@@ -8,7 +8,8 @@ function Ship(name, amount, size) {
 		this.amount = amount,
 		this.size = size,
 		this.counter = amount,
-		this.plasedShip = size
+		this.plasedShip = size,
+		this.coordinates = []
 };
 
 Ship.prototype.shipOnField = function () {
@@ -22,10 +23,10 @@ Ship.prototype.shipOnField = function () {
 };
 
 const firstPlayerFleet = {
-	battleship: [],
-	cruisers: [],
-	destroyer: [],
-	tarpedBoats: [],
+	battleship: {},
+	cruisers: {},
+	destroyer: {},
+	tarpedBoats: {},
 	unit: [],
 	allowCellX: [],
 	allowCellY: [],
@@ -34,27 +35,27 @@ const firstPlayerFleet = {
 	fleet: [],
 	getfleet: function (sizeId) {
 		if (sizeId === "mini") {
-			const destroyer = new Ship("Destroyer", 1, 2);
-			const tarpedBoats = new Ship("Tarped-boat", 2, 1);
-			this.fleet.push(destroyer, tarpedBoats);
+			this.destroyer = new Ship("Destroyer", 1, 2);
+			this.tarpedBoats = new Ship("Tarped-boat", 2, 1);
+			this.fleet.push(this.destroyer, this.tarpedBoats);
 		} else if (sizeId === "standard") {
-			const battleship = new Ship("Battleship", 1, 4);
-			const cruisers = new Ship("Cruiser", 2, 3);
-			const destroyer = new Ship("Destroyer", 3, 2);
-			const tarpedBoats = new Ship("Tarped-boat", 4, 1);
-			this.fleet.push(battleship, cruisers, destroyer, tarpedBoats);
+			this.battleship = new Ship("Battleship", 1, 4);
+			this.cruisers = new Ship("Cruiser", 2, 3);
+			this.destroyer = new Ship("Destroyer", 3, 2);
+			this.tarpedBoats = new Ship("Tarped-boat", 4, 1);
+			this.fleet.push(this.battleship, this.cruisers, this.destroyer, this.tarpedBoats);
 		} else if (sizeId === "big") {
-			const battleship = new Ship("Battleship", 2, 4);
-			const cruisers = new Ship("Cruiser", 3, 3);
-			const destroyer = new Ship("Destroyer", 4, 2);
-			const tarpedBoats = new Ship("Tarped-boat", 5, 1);
-			this.fleet.push(battleship, cruisers, destroyer, tarpedBoats);
+			this.battleship = new Ship("Battleship", 2, 4);
+			this.cruisers = new Ship("Cruiser", 3, 3);
+			this.destroyer = new Ship("Destroyer", 4, 2);
+			this.tarpedBoats = new Ship("Tarped-boat", 5, 1);
+			this.fleet.push(this.battleship, this.cruisers, this.destroyer, this.tarpedBoats);
 		} else if (sizeId === "huge") {
-			const battleship = new Ship("Battleship", 3, 4);
-			const cruisers = new Ship("Cruiser", 4, 3);
-			const destroyer = new Ship("Destroyer", 5, 2);
-			const tarpedBoats = new Ship("Tarped-boat", 6, 1);
-			this.fleet.push(battleship, cruisers, destroyer, tarpedBoats);
+			this.battleship = new Ship("Battleship", 3, 4);
+			this.cruisers = new Ship("Cruiser", 4, 3);
+			this.destroyer = new Ship("Destroyer", 5, 2);
+			this.tarpedBoats = new Ship("Tarped-boat", 6, 1);
+			this.fleet.push(this.battleship, this.cruisers, this.destroyer, this.tarpedBoats);
 		}
 	},
 };
@@ -196,15 +197,13 @@ window.onload = function () {
 
 	fleetButtonsArea.addEventListener("click", function (event) {
 		let allCells = document.querySelectorAll(".battleCell");
-		for(let el of allCells) {
-			if(el.classList.contains("selectedCell") || el.classList.contains("allowedCell")) {
+		for (let el of allCells) {
+			if (el.classList.contains("selectedCell") || el.classList.contains("allowedCell")) {
 				el.classList.remove("selectedCell", "allowedCell");
+				firstPlayerFleet.allowCellX = [];
+				firstPlayerFleet.allowCellY = [];
+				firstPlayerFleet.unit = [];
 			}
-		}
-
-		if(firstPlayerFleet.allowCellX !== []) {
-			firstPlayerFleet.allowCellX = [];
-			firstPlayerFleet.allowCellY = [];
 		}
 
 		if (!event.target.classList.contains("active") && event.target.parentNode.className === "fleet-buttons") {
@@ -214,54 +213,44 @@ window.onload = function () {
 
 	firstPlayerField.addEventListener("click", function (event) {
 		for (let i = 0; i < fleetButtonsArea.children.length; i++) {
-			if (fleetButtonsArea.children[i].classList.contains("active") && fleetButtonsArea.children[i].id === firstPlayerFleet.fleet[0].name && event.target.id) {
+			if (fleetButtonsArea.children[i].classList.contains("active") && fleetButtonsArea.children[i].id === firstPlayerFleet.fleet[i].name && event.target.id) {
 
-				toSetSthip(event, firstPlayerFleet.battleship, i);
-				break;
-			} else if (fleetButtonsArea.children[i].classList.contains("active") && fleetButtonsArea.children[i].id === firstPlayerFleet.fleet[1].name && event.target.id) {
-
-				toSetSthip(event, firstPlayerFleet.cruisers, i);
-
-				break;
-			} else if (fleetButtonsArea.children[i].classList.contains("active") && fleetButtonsArea.children[i].id === firstPlayerFleet.fleet[2].name && event.target.id) {
-
-				toSetSthip(event, firstPlayerFleet.destroyer, i);
-				break;
-			} else if (fleetButtonsArea.children[i].classList.contains("active") && fleetButtonsArea.children[i].id === firstPlayerFleet.fleet[3].name && event.target.id) {
-
-				toSetSthip(event, firstPlayerFleet.tarpedBoats, i);
+				toSetShip(event, firstPlayerFleet[i], i);
 				break;
 			}
 		}
-
-	})
+	});
 };
 
-function toSetSthip(event, arrayShip, index) {
+function toSetShip(event, arrayShip, index) {
 	if (firstPlayerFleet.fleet[index].plasedShip > 0) {
 		--firstPlayerFleet.fleet[index].plasedShip;
 		firstPlayerFleet.unit.push(event.target.id);
 
+		console.log(firstPlayerFleet.unit);
+
 		if (firstPlayerFleet.unit.length === firstPlayerFleet.fleet[index].size) {
 			--firstPlayerFleet.fleet[index].counter;
 			fleetButtonsArea.children[index].innerHTML = `${firstPlayerFleet.fleet[index].name} - ${firstPlayerFleet.fleet[index].counter}/${firstPlayerFleet.fleet[index].amount} (${firstPlayerFleet.fleet[index].size} cell)`;
-			arrayShip.push(firstPlayerFleet.unit);
+			arrayShip.coordinates.push(firstPlayerFleet.unit);
 			firstPlayerFleet.unit = [];
 		}
-		
+
+		console.log(firstPlayerFleet.battleship.coordinates);
+
 		event.target.classList.add("selectedCell");
 
-		getShipCells(event, firstPlayerFleet.unit, index);
+		getShipCells(firstPlayerFleet.unit, index);
 	}
 };
 
-function getShipCells(event, coordinate, index) {
-	if (coordinate.length === 1) {		
+function getShipCells(coordinate, index) {
+	if (coordinate.length === 1) {
 
 		firstPlayerFleet.getIntLeter = battleField.chars.indexOf(coordinate[coordinate.length - 1][0]);
 		firstPlayerFleet.getInt = +coordinate[coordinate.length - 1][1];
 
-		if(coordinate[coordinate.length - 1].length > 2) {
+		if (coordinate[coordinate.length - 1].length > 2) {
 			let twodigitNumber = +(coordinate[coordinate.length - 1][1] + coordinate[coordinate.length - 1][2]);
 			firstPlayerFleet.getInt = twodigitNumber;
 		}
